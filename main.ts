@@ -1,5 +1,3 @@
-
-
 //% color="170"
 namespace MagnetischeNavigation {
     let MotorSpeedSet = 0x82
@@ -19,7 +17,7 @@ namespace MagnetischeNavigation {
     let electromagnetDirection = [[0, 0], [0, 0], [0, 0], [0, 0]]
     let electromagnetOutput = [[0, 0], [0, 0], [0, 0], [0, 0]]
     let DriverAddress = [0x0A, 0x0B, 0x0C, 0x0D]
-    let strip = neopixel.create(DigitalPin.P2, 32, NeoPixelMode.RGB)
+    let strip = neopixel.create(DigitalPin.P1, 32, NeoPixelMode.RGB)
 
 
     /**
@@ -73,7 +71,37 @@ namespace MagnetischeNavigation {
         speedBuffer[2] = electromagnetOutput[motorDriverIdx][1]
         pins.i2cWriteBuffer(DriverAddress[motorDriverIdx], speedBuffer, false)
         
-        strip.showRainbow(1, 360)
+//set led strips
+        strip.clear();
+        let motorIdx=0;
+        let ledStartIdx=0;
+        for (let driverIdx = 0; driverIdx < 4; driverIdx++) {
+    	    for (let portIdx = 0; portIdx < 2; portIdx++) {
+                motorIdx=driverIdx*2+portIdx
+                ledStartIdx=motorIdx*8
+                let colorChoice = neopixel.rgb(0, 255, 0)
+                if (electromagnetDirection[driverIdx][portIdx]>0) {
+                    colorChoice = neopixel.rgb(255, 0, 0)
+                      }
+                if (electromagnetOutput[driverIdx][portIdx] > 35) {
+                    strip.setPixelColor(ledStartIdx+3, colorChoice)
+                    strip.setPixelColor(ledStartIdx+4, colorChoice)
+                }
+                if (electromagnetOutput[driverIdx][portIdx] > 110) {
+                    strip.setPixelColor(ledStartIdx+2, colorChoice)
+                    strip.setPixelColor(ledStartIdx+5, colorChoice)
+                }
+                if (electromagnetOutput[driverIdx][portIdx] > 160) {
+                    strip.setPixelColor(ledStartIdx+1, colorChoice)
+                    strip.setPixelColor(ledStartIdx+6, colorChoice)
+                }
+                if (electromagnetOutput[driverIdx][portIdx] > 220) {
+                    strip.setPixelColor(ledStartIdx, colorChoice)
+                    strip.setPixelColor(ledStartIdx+7, colorChoice)
+                }
+            }
+        }
+
         strip.show()
 
     }
