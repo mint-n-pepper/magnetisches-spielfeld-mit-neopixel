@@ -17,7 +17,7 @@ namespace MagnetischeNavigation {
     let electromagnetDirection = [[0, 0], [0, 0], [0, 0], [0, 0]]
     let electromagnetOutput = [[0, 0], [0, 0], [0, 0], [0, 0]]
     let DriverAddress = [0x0A, 0x0B, 0x0C, 0x0D]
-    let strip = neopixel.create(DigitalPin.P2, 32, NeoPixelMode.RGB)
+    let strip = neopixel.create(DigitalPin.P2, 64, NeoPixelMode.RGB)
 
 
     /**
