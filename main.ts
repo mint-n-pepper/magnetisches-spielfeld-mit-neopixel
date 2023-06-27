@@ -1,4 +1,7 @@
-//% color="170"
+/*
+Magnetisches Spielfeld Interface für Motor Drivers
+*/
+//% weight=10 icon="\uf192" color=#ff5733 block="Magnetisches Spielfeld" 
 namespace MagnetischeNavigation {
     let MotorSpeedSet = 0x82
     let PWMFrequenceSet = 0x84
