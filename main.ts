@@ -20,7 +20,7 @@ namespace MagnetischeNavigation {
     let electromagnetDirection = [[0, 0], [0, 0], [0, 0], [0, 0]]
     let electromagnetOutput = [[0, 0], [0, 0], [0, 0], [0, 0]]
     let DriverAddress = [0x0A, 0x0B, 0x0C, 0x0D]
-    let strip = neopixel.create(DigitalPin.P2, 64, NeoPixelMode.RGB)
+    let levelIndicatorLEDs = neopixel.create(DigitalPin.P2, 64, NeoPixelMode.RGB)
 
 
     /**
@@ -62,7 +62,7 @@ namespace MagnetischeNavigation {
         let speedBuffer = pins.createBuffer(3)
                
         //set led strips
-        strip.clear();
+        levelIndicatorLEDs.clear();
         let motorIdx=0;
         let ledStartIdx=0;
         for (let driverIdx = 0; driverIdx < 4; driverIdx++) {
@@ -96,25 +96,25 @@ namespace MagnetischeNavigation {
                     colorChoice = neopixel.rgb(255, 0, 0)
                       }
                 if (electromagnetOutput[driverIdx][portIdx] > 10) {
-                    strip.setPixelColor(ledStartIdx+3, colorChoice)
-                    strip.setPixelColor(ledStartIdx+4, colorChoice)
+                    levelIndicatorLEDs.setPixelColor(ledStartIdx+3, colorChoice)
+                    levelIndicatorLEDs.setPixelColor(ledStartIdx+4, colorChoice)
                 }
                 if (electromagnetOutput[driverIdx][portIdx] > 40) {
-                    strip.setPixelColor(ledStartIdx+2, colorChoice)
-                    strip.setPixelColor(ledStartIdx+5, colorChoice)
+                    levelIndicatorLEDs.setPixelColor(ledStartIdx+2, colorChoice)
+                    levelIndicatorLEDs.setPixelColor(ledStartIdx+5, colorChoice)
                 }
                 if (electromagnetOutput[driverIdx][portIdx] > 70) {
-                    strip.setPixelColor(ledStartIdx+1, colorChoice)
-                    strip.setPixelColor(ledStartIdx+6, colorChoice)
+                    levelIndicatorLEDs.setPixelColor(ledStartIdx+1, colorChoice)
+                    levelIndicatorLEDs.setPixelColor(ledStartIdx+6, colorChoice)
                 }
                 if (electromagnetOutput[driverIdx][portIdx] > 95) {
-                    strip.setPixelColor(ledStartIdx, colorChoice)
-                    strip.setPixelColor(ledStartIdx+7, colorChoice)
+                    levelIndicatorLEDs.setPixelColor(ledStartIdx, colorChoice)
+                    levelIndicatorLEDs.setPixelColor(ledStartIdx+7, colorChoice)
                 }
             }
         }
 
-        strip.show()
+        levelIndicatorLEDs.show()
 
     }
 
