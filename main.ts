@@ -61,7 +61,7 @@ namespace MagneticNavigation {
 
     /**
      * Setze die Leistung für alle Elektromagneten.
-     * Wenn die Arraylänge nicht 8 beträgt wird ein Ton ausgegeben.
+     * Wenn die Arraylänge nicht 8 beträgt wird kein Wert gesetzt und ein Ton ausgegeben.
      * @param magnetLevels Array mit 8 Leistungswerten im Bereich [-100;100]
      */
     //% block="Definiere die Werte für alle Elektromagnete: $magnetLevels"
