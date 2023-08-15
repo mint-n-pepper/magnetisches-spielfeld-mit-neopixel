@@ -2,7 +2,7 @@
 Magnetisches Spielfeld Interface für Motor Drivers
 */
 //% weight=10 icon="\uf192" color=#ff5733 block="Magnetisches Spielfeld" 
-namespace MagnetischeNavigation {
+namespace MagneticNavigation {
     let MotorSpeedSet = 0x82
     let PWMFrequenceSet = 0x84
     let DirectionSet = 0xaa
@@ -23,8 +23,8 @@ namespace MagnetischeNavigation {
     let levelIndicatorLEDs = neopixel.create(DigitalPin.P2, 64, NeoPixelMode.RGB)
 
     /**
-     * Setze die Leistung für einen Elektromagneten
-     * Wenn der Index nicht zwischen 1 und 8 liget wird ein Ton ausgegeben
+     * Setze die Leistung für einen Elektromagneten.
+     * Wenn der Index nicht zwischen 1 und 8 liegt wird kein Wert gesetzt und ein Ton ausgegeben.
      * @param index des Elektromagneten
      * @param leistung die der Elektromagnet abgeben soll
      */
@@ -60,9 +60,9 @@ namespace MagnetischeNavigation {
     }
 
     /**
-     * Setze die Leistung für alle Elektromagneten
+     * Setze die Leistung für alle Elektromagneten.
      * Wenn die Arraylänge nicht 8 beträgt wird ein Ton ausgegeben.
-     * @param Array mit 8 Werten im Bereich [-100;100]
+     * @param magnetLevels Array mit 8 Leistungswerten im Bereich [-100;100]
      */
     //% block="Definiere die Werte für alle Elektromagnete: $magnetLevels"
     export function setAllMagnetPowers(magnetLevels: number[]): void {
@@ -80,7 +80,7 @@ namespace MagnetischeNavigation {
     /**
      * Schicke alle Leistungen zu den Motortreibern und aktiviere die Neopixel
      */
-    //% block="Sende alle Leistungswerte"
+    //% block="Sende alle Leistungswerte zum Spielfeld"
     export function writeAll() {
         let directionBuffer = pins.createBuffer(3)
         let speedBuffer = pins.createBuffer(3)
