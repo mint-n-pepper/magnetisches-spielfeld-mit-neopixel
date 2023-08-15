@@ -52,6 +52,23 @@ namespace MagnetischeNavigation {
         }
     }
 
+    /**
+     * Setze die Leistung für alle Elektromagneten
+     * Wenn die Arraylänge nicht 8 beträgt wird ein Ton ausgegeben.
+     * @param Array mit 8 Werten im Bereich [-100;100]
+     */
+    //% block="Definiere die Werte für alle Elektromagnete: $magnetLevels"
+    export function setAllMagnetPowers(magnetLevels: number[]): void {
+        if (magnetLevels.length == 8) {
+            for (let idx = 0; idx < 8; idx++) {
+                setMagnetPower(idx + 1, magnetLevels[idx])
+            }
+        }
+        else {
+            music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
+        }
+    }
+
 
     /**
      * Schicke alle Leistungen zu den Motortreibern und aktiviere die Neopixel
