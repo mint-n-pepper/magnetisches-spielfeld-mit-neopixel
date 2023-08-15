@@ -22,9 +22,9 @@ namespace MagnetischeNavigation {
     let DriverAddress = [0x0A, 0x0B, 0x0C, 0x0D]
     let levelIndicatorLEDs = neopixel.create(DigitalPin.P2, 64, NeoPixelMode.RGB)
 
-
     /**
      * Setze die Leistung für einen Elektromagneten
+     * Wenn der Index nicht zwischen 1 und 8 liget wird ein Ton ausgegeben
      * @param index des Elektromagneten
      * @param leistung die der Elektromagnet abgeben soll
      */
@@ -36,20 +36,27 @@ namespace MagnetischeNavigation {
     export function setMagnetPower(
         index?: number,
         leistung?: number) {
-        let motorDriverIdx = Math.floor((index - 1) / 2)
-        let motorDriverPort = (index - 1) % 2
 
-        // set new direction
-        if (leistung < 0) {
-            electromagnetDirection[motorDriverIdx][motorDriverPort] = 1
-        } else {
-            electromagnetDirection[motorDriverIdx][motorDriverPort] = 0
+        if (index >= 1 && index <= 8) {
+            let motorDriverIdx = Math.floor((index - 1) / 2)
+            let motorDriverPort = (index - 1) % 2
+
+            // set new direction
+            if (leistung < 0) {
+                electromagnetDirection[motorDriverIdx][motorDriverPort] = 1
+            } else {
+                electromagnetDirection[motorDriverIdx][motorDriverPort] = 0
+            }
+            // set new speed
+            electromagnetOutput[motorDriverIdx][motorDriverPort] = Math.abs(leistung)
+            if (electromagnetOutput[motorDriverIdx][motorDriverPort] > 100) {
+                electromagnetOutput[motorDriverIdx][motorDriverPort] = 100
+            }
         }
-        // set new speed
-        electromagnetOutput[motorDriverIdx][motorDriverPort] = Math.abs(leistung)
-        if (electromagnetOutput[motorDriverIdx][motorDriverPort] > 100) {
-            electromagnetOutput[motorDriverIdx][motorDriverPort] = 100
+        else {
+            music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
         }
+
     }
 
     /**
