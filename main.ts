@@ -23,6 +23,15 @@ namespace MagneticNavigation {
     let levelIndicatorLEDs = neopixel.create(DigitalPin.P2, 64, NeoPixelMode.RGB)
 
     /**
+         * Setze Leistung für alle Elektromagnete auf 0
+         */
+    //% block="Setze Leistung für alle Elektromagnete auf 0"
+    export function zeroAllMagnets() {
+        electromagnetDirection = [[0, 0], [0, 0], [0, 0], [0, 0]]
+        electromagnetOutput = [[0, 0], [0, 0], [0, 0], [0, 0]]
+    }
+
+    /**
      * Setze die Leistung für einen Elektromagneten.
      * Wenn der Index nicht zwischen 1 und 8 liegt wird kein Wert gesetzt und ein Ton ausgegeben.
      * @param index des Elektromagneten
@@ -64,7 +73,7 @@ namespace MagneticNavigation {
      * Wenn die Arraylänge nicht 8 beträgt wird kein Wert gesetzt und ein Ton ausgegeben.
      * @param magnetLevels Array mit 8 Leistungswerten im Bereich [-100;100]
      */
-    //% block="Definiere die Werte für alle Elektromagnete: $magnetLevels"
+    //% block="Setze die Werte für alle Elektromagnete: $magnetLevels"
     export function setAllMagnetPowers(magnetLevels: number[]): void {
         if (magnetLevels.length == 8) {
             for (let idx = 0; idx < 8; idx++) {
@@ -76,9 +85,9 @@ namespace MagneticNavigation {
         }
     }
 
-
     /**
-     * Schicke alle Leistungen zu den Motortreibern und aktiviere die Neopixel
+     * Sende alle Leistungswerte zu den Motortreibern und aktiviere die Neopixel.
+     * Muss immer ausgeführt werden wenn neu gesetzte Werte angezeigt werden sollen.
      */
     //% block="Sende alle Leistungswerte zum Spielfeld"
     export function writeAll() {
@@ -140,14 +149,5 @@ namespace MagneticNavigation {
 
         levelIndicatorLEDs.show()
 
-    }
-
-    /**
-     * Setze Leistung für alle Elektromagnete auf 0
-     */
-    //% block="Setze Leistung für alle Elektromagnete auf 0"
-    export function zeroAllMagnets() {
-        electromagnetDirection = [[0, 0], [0, 0], [0, 0], [0, 0]]
-        electromagnetOutput = [[0, 0], [0, 0], [0, 0], [0, 0]]    
     }
 }
