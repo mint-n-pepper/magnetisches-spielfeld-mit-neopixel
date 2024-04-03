@@ -113,7 +113,7 @@ namespace MagneticNavigation {
             }
             directionBuffer[2] = Nothing
             pins.i2cWriteBuffer(DriverAddress[driverIdx], directionBuffer, false)
-
+            basic.pause(2)
             //set power
             speedBuffer[0] = MotorSpeedSet
             speedBuffer[1] = Math.floor(electromagnetOutput[driverIdx][0]*2.55)
@@ -145,6 +145,7 @@ namespace MagneticNavigation {
                     levelIndicatorLEDs.setPixelColor(ledStartIdx+7, colorChoice)
                 }
             }
+            basic.pause(5)
         }
 
         levelIndicatorLEDs.show()
