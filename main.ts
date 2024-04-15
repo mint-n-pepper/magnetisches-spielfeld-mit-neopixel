@@ -128,7 +128,7 @@ namespace MagneticNavigation {
             basic.pause(1)
 
             //set power
-            let scaling_pwm = 2.55 * 0.63;
+            let scaling_pwm = 2.55 * 0.85;
             speedBuffer[0] = MotorSpeedSet
             speedBuffer[1] = Math.floor(electromagnetOutput[driverIdx][0]*scaling_pwm)
             speedBuffer[2] = Math.floor(electromagnetOutput[driverIdx][1]*scaling_pwm)
