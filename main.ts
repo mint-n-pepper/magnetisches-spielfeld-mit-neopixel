@@ -120,9 +120,11 @@ namespace MagneticNavigation {
             }
             directionBuffer[2] = Nothing
             let status;
-            status = pins.i2cWriteBuffer(DriverAddress[driverIdx], directionBuffer, true )
+            status = pins.i2cWriteBuffer(DriverAddress[driverIdx], directionBuffer, false)
 
             if (status == MICROBIT_I2C_ERROR){ resetI2CDevices(); }
+
+            basic.pause(1)
 
             //set power
             speedBuffer[0] = MotorSpeedSet
