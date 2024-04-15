@@ -22,9 +22,18 @@ namespace MagneticNavigation {
     let DriverAddress = [0x0A, 0x0B, 0x0C, 0x0D]
     let levelIndicatorLEDs = neopixel.create(DigitalPin.P2, 64, NeoPixelMode.RGB)
 
+
+    function resetI2CDevices(){
+        let reset_pin = DigitalPin.P1;
+        pins.digitalWritePin(reset_pin, 1);
+        basic.pause(50);
+        pins.digitalWritePin(reset_pin, 0);
+        basic.pause(250);
+    }
+
     /**
-         * Setze Leistung für alle Elektromagnete auf 0
-         */
+     * Setze Leistung für alle Elektromagnete auf 0
+     */
     //% block="Setze Leistung für alle Elektromagnete auf 0"
     export function zeroAllMagnets() {
         electromagnetDirection = [[0, 0], [0, 0], [0, 0], [0, 0]]
@@ -65,7 +74,6 @@ namespace MagneticNavigation {
         else {
             music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
         }
-
     }
 
     /**
@@ -112,13 +120,21 @@ namespace MagneticNavigation {
                 directionBuffer[1] = BothClockWise
             }
             directionBuffer[2] = Nothing
-            pins.i2cWriteBuffer(DriverAddress[driverIdx], directionBuffer, false)
-            basic.pause(10)
+            let status;
+            status = pins.i2cWriteBuffer(DriverAddress[driverIdx], directionBuffer, false)
+
+            if (status != 0){ resetI2CDevices(); }
+
+            basic.pause(1)
+
             //set power
+            let scaling_pwm = 2.55 * 0.85;
             speedBuffer[0] = MotorSpeedSet
-            speedBuffer[1] = Math.floor(electromagnetOutput[driverIdx][0]*2.55)
-            speedBuffer[2] = Math.floor(electromagnetOutput[driverIdx][1]*2.55)
-            pins.i2cWriteBuffer(DriverAddress[driverIdx], speedBuffer, false)
+            speedBuffer[1] = Math.floor(electromagnetOutput[driverIdx][0]*scaling_pwm)
+            speedBuffer[2] = Math.floor(electromagnetOutput[driverIdx][1]*scaling_pwm)
+            status = pins.i2cWriteBuffer(DriverAddress[driverIdx], speedBuffer, false)
+
+            if (status != 0){ resetI2CDevices(); }
 
             //set all LED lights
             for (let portIdx = 0; portIdx < 2; portIdx++) {
@@ -145,7 +161,7 @@ namespace MagneticNavigation {
                     levelIndicatorLEDs.setPixelColor(ledStartIdx+7, colorChoice)
                 }
             }
-            basic.pause(15)
+            basic.pause(1)
         }
 
         levelIndicatorLEDs.show()
