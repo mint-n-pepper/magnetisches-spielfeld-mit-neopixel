@@ -128,9 +128,10 @@ namespace MagneticNavigation {
             basic.pause(1)
 
             //set power
+            let scaling_pwm = 2.55 * 1.4;
             speedBuffer[0] = MotorSpeedSet
-            speedBuffer[1] = Math.floor(electromagnetOutput[driverIdx][0]*2.55)
-            speedBuffer[2] = Math.floor(electromagnetOutput[driverIdx][1]*2.55)
+            speedBuffer[1] = Math.floor(electromagnetOutput[driverIdx][0]*scaling_pwm)
+            speedBuffer[2] = Math.floor(electromagnetOutput[driverIdx][1]*scaling_pwm)
             status = pins.i2cWriteBuffer(DriverAddress[driverIdx], speedBuffer, false)
 
             if (status != 0){ resetI2CDevices(); }
