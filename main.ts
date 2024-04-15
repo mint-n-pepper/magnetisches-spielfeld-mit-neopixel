@@ -24,10 +24,10 @@ namespace MagneticNavigation {
 
 
     function resetI2CDevices(){
-        let reset_pin = P1;
-        pins.digitalWritePin(name: reset_pin, value: 1);
+        let reset_pin = DigitalPin.P1;
+        pins.digitalWritePin(reset_pin, 1);
         basic.pause(50);
-        pins.digitalWritePin(name: reset_pin, value: 0);
+        pins.digitalWritePin(reset_pin, 0);
         basic.pause(250);
     }
 
