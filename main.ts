@@ -123,7 +123,7 @@ namespace MagneticNavigation {
             let status;
             status = pins.i2cWriteBuffer(DriverAddress[driverIdx], directionBuffer, false)
 
-            if (status == MICROBIT_I2C_ERROR){ resetI2CDevices(); }
+            if (status != 0){ resetI2CDevices(); }
 
             basic.pause(1)
 
@@ -133,7 +133,7 @@ namespace MagneticNavigation {
             speedBuffer[2] = Math.floor(electromagnetOutput[driverIdx][1]*2.55)
             status = pins.i2cWriteBuffer(DriverAddress[driverIdx], speedBuffer, false)
 
-            if (status == MICROBIT_I2C_ERROR){ resetI2CDevices(); }
+            if (status != 0){ resetI2CDevices(); }
 
             //set all LED lights
             for (let portIdx = 0; portIdx < 2; portIdx++) {
