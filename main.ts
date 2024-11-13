@@ -1,5 +1,5 @@
 /*
-Magnetisches Spielfeld Interface für Motor Drivers
+Magnetisches Spielfeld Interface für steuern der Elektromagnete nanomed4life
 */
 //% weight=10 icon="\uf192" color=#ff5733 block="Magnetisches Spielfeld" 
 namespace MagneticNavigation {
@@ -32,7 +32,7 @@ namespace MagneticNavigation {
     }
 
     /**
-     * Setze Leistung für alle Elektromagnete auf 0
+     * Setze Leistung für alle Elektromagnete auf 0.
      */
     //% block="Setze Leistung für alle Elektromagnete auf 0"
     export function zeroAllMagnets() {
@@ -41,8 +41,8 @@ namespace MagneticNavigation {
     }
 
     /**
-     * Setze die Leistung für einen Elektromagneten.
-     * Wenn der Index nicht zwischen 1 und 8 liegt wird kein Wert gesetzt und ein Ton ausgegeben.
+     * Setze die Leistung für einzelnen Elektromagneten.
+     * Der Index muss zwischen 1 und 8 liegen, ansonsten wird kein Wert gesetzt und ein Alarmton ausgegeben. Leistungen im Plus-Bereich zwischen 0 < 100 erzeugen einen positiven Magnetismus (Nord/ rot). Leistungen mit Minuswerten zwischen 0 < -100 erzeugen einen negativen Magnetismus (Süd/ grün).
      * @param index des Elektromagneten
      * @param leistung die der Elektromagnet abgeben soll
      */
@@ -82,7 +82,7 @@ namespace MagneticNavigation {
      * @param magnetLevels Array mit 8 Leistungswerten im Bereich [-100;100]
      */
     //% block="Setze die Werte für alle Elektromagnete: $magnetLevels"
-    export function setAllMagnetPowers(magnetLevels: number[]): void {
+    function setAllMagnetPowers(magnetLevels: number[]): void {
         if (magnetLevels.length == 8) {
             for (let idx = 0; idx < 8; idx++) {
                 setMagnetPower(idx + 1, magnetLevels[idx])
