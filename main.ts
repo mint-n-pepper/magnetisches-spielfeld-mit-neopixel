@@ -1,5 +1,5 @@
 /*
-Magnetspielfeld mit micro:Bit steuern.
+gamepad package
 */
 //% weight=10 icon="\uf192" color=#5B5B5B block="Magnetspielfeld" 
 namespace MagneticNavigation {
