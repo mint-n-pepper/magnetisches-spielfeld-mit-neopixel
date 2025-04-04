@@ -1,7 +1,7 @@
 /*
 Magnetspielfeld mit micro:Bit steuern.
 */
-//% weight=10 icon="\uf192" color=#ff5733 block="Magnetspielfeld" 
+//% weight=10 icon="\uf192" color=#5B5B5B block="Magnetspielfeld" 
 namespace MagneticNavigation {
     let MotorSpeedSet = 0x82
     let PWMFrequenceSet = 0x84
@@ -95,7 +95,7 @@ namespace MagneticNavigation {
 
     /**
      * Sende die Leistungswerte zum Spielfeld.
-     * Diese Funktion muss immer ausgeführt werden um die bevor definierte Funktion auszuführen.
+     * Ohne diese Funktion werden die definierten Leistungen nicht ausgeführt.
      */
     //% block="Sende die Leistungswerte zum Spielfeld"
     export function writeAll() {
